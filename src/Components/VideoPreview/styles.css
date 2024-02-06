@@ -18,6 +18,7 @@
     font-weight: 600;
     color: greenyellow;
     padding: 10px;
+    text-transform: capitalize;
 }
 .recording-icon.active {
     display: block;

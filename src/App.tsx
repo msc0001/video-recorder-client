@@ -1,5 +1,4 @@
 import "./App.css";
-import Details from "./Components/Details";
 import VideoPreview from "./Components/VideoPreview";
 
 function App() {

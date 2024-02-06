@@ -1,6 +1,7 @@
 export interface MediaRecorderData {
     mediaRecorder: MediaRecorder;
     recordedVideoChunks: Array<Blob>;
+    resetRecordedVideo: CallableFunction;
 }
 
 export default function getMediaRecorder({
@@ -29,6 +30,10 @@ export default function getMediaRecorder({
         onStartRecording();
     };
 
+    mediaRecorder.onresume = function () {
+        onStartRecording();
+    };
+
     mediaRecorder.onpause = function () {
         onPauseRecording();
     };
@@ -41,8 +46,13 @@ export default function getMediaRecorder({
         return onStopRecording(recordedBlob);
     };
 
+    const resetRecordedVideo = function () {
+        recordedVideoChunks = [];
+    };
+
     return {
         mediaRecorder,
         recordedVideoChunks,
+        resetRecordedVideo,
     };
 }
