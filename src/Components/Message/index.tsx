@@ -1,11 +1,20 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, MouseEventHandler } from "react";
+import Button from "../Button";
 
 interface MessageProps {
     data: string;
+    refresh?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Message: FunctionComponent<MessageProps> = ({ data }) => {
-    return <p>{data}</p>;
+const Message: FunctionComponent<MessageProps> = ({ data, refresh }) => {
+    return (
+        <>
+            <p>{data}</p>
+            {typeof refresh === "function" ? (
+                <Button onClick={refresh}>Refresh</Button>
+            ) : null}
+        </>
+    );
 };
 
 export default Message;

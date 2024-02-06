@@ -22,18 +22,30 @@ const VideoPreview: FunctionComponent<VideoPreviewProps> = ({
 
     if (loading) return <Message data="Loading..." />;
 
-    if (hasError) return <Message data="Allow permissions" />;
+    if (hasError)
+        return (
+            <Message data="Allow video and audio permissions in the browser" />
+        );
+
+    const isStreamAvailable = !!stream;
 
     return (
         <div className="video-container">
             <VideoActions stream={stream} />
-            <video
-                ref={videoElementRef}
-                id={id}
-                autoPlay
-                muted
-                className={`video-frame`}
-            />
+            <div className="video-wrapper">
+                <video
+                    ref={videoElementRef}
+                    id={id}
+                    autoPlay
+                    muted
+                    className={`video-frame ${
+                        isStreamAvailable ? "active" : ""
+                    }`}
+                />
+            </div>
+            {!isStreamAvailable ? (
+                <Message data="Permissions not available" />
+            ) : null}
         </div>
     );
 };

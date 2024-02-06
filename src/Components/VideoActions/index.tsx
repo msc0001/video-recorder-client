@@ -10,6 +10,7 @@ import getMediaRecorder, {
     MediaRecorderData,
 } from "../../Helpers/mediaRecorder";
 import downloadVideo from "../../Helpers/downloadVideo";
+import "./styles.css";
 
 interface VideoActionsProps {
     stream: MediaStream | null;
@@ -86,7 +87,10 @@ const VideoActions: FunctionComponent<VideoActionsProps> = ({ stream }) => {
     }, [recordedVideo]);
 
     const { mediaRecorder } = mediaRecorderRef.current || {};
-    console.log(mediaRecorder?.state);
+
+    if (!mediaRecorder?.state) {
+        return null;
+    }
 
     const isRecording = recordingState === STATE.RECORDING;
     const isPaused = recordingState === STATE.PAUSED;
@@ -97,7 +101,7 @@ const VideoActions: FunctionComponent<VideoActionsProps> = ({ stream }) => {
             <span
                 className={`recording-icon ${
                     isRecording || isPaused ? "active" : ""
-                }`}
+                } ${mediaRecorder?.state || ""}`}
             >
                 {mediaRecorder?.state}
             </span>

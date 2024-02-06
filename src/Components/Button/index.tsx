@@ -14,7 +14,7 @@ interface ButtonProps {
 }
 
 const Button: FunctionComponent<ButtonProps> = ({
-    className,
+    className = "",
     children,
     onClick,
 }) => {

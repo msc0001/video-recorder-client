@@ -20,6 +20,22 @@ export default function getMediaRecorder({
     });
 
     let recordedVideoChunks: Array<Blob> = [];
+
+    window.addEventListener("beforeunload", (event: BeforeUnloadEvent) => {
+        if (!recordedVideoChunks.length) {
+            return;
+        }
+
+        event.preventDefault();
+        event.returnValue = "";
+
+        const message =
+            "You have unsaved work. Are you sure you want to leave this page?";
+        event.returnValue = message;
+
+        return message;
+    });
+
     mediaRecorder.ondataavailable = function (event) {
         if (event.data.size > 0) {
             recordedVideoChunks.push(event.data);
